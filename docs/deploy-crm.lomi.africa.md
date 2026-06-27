@@ -9,7 +9,27 @@
   - `Postgres` → primary database
   - `Redis` → cache / queues
 
-## Railway (already provisioned)
+## CI deploy (recommended)
+
+Pushes to `main` on **lomiafrica/crm** run [`.github/workflows/deploy-lomi-production.yaml`](.github/workflows/deploy-lomi-production.yaml):
+
+1. Deploy `crm-server` to Railway
+2. Deploy `crm-worker` to Railway
+3. Deploy frontend to Vercel
+
+### One-time GitHub secrets (lomiafrica/crm → Settings → Secrets)
+
+| Secret | How to get it |
+|--------|----------------|
+| `RAILWAY_TOKEN` | Railway → project **lomi-crm** → Settings → Tokens → Create |
+| `VERCEL_TOKEN` | [vercel.com/account/tokens](https://vercel.com/account/tokens) |
+| `VERCEL_ORG_ID` | Vercel → Team Settings → General |
+| `VERCEL_PROJECT_ID_CRM` | Create Vercel project for this repo, copy Project ID |
+
+**Tip:** Disable Railway's native GitHub auto-deploy on `crm-server` and `crm-worker` (Settings → Source → Disconnect) so only CI triggers builds.
+
+Manual deploy fallback: `workflow_dispatch` on the workflow, or `railway up -s crm-server`.
+
 
 Project: **lomi-crm** (`b931934c-995c-4f3c-9587-09c71940c2f0`)
 
@@ -54,27 +74,11 @@ railway domain api.crm.lomi.africa --service crm-server --port 3000
 
 Add the returned CNAME at your DNS provider for `api.crm`.
 
-## Google OAuth (Internal — @lomi.africa only)
+## Google OAuth (@lomi.africa only)
 
-1. [Google Cloud Console](https://console.cloud.google.com) → APIs & Services → OAuth consent screen
-2. **User type:** Internal (limits sign-in to your Google Workspace domain)
-3. Create **OAuth 2.0 Client ID** (Web application):
-   - **Authorized JavaScript origins:** `https://api.crm.lomi.africa`
-   - **Authorized redirect URIs:** `https://api.crm.lomi.africa/auth/google/callback`
-4. Set Railway variables on `crm-server` and `crm-worker`:
+**Full walkthrough:** [docs/google-oauth-setup.md](google-oauth-setup.md)
 
-```bash
-railway variable set \
-  AUTH_GOOGLE_ENABLED=true \
-  AUTH_GOOGLE_CLIENT_ID=<client-id> \
-  AUTH_GOOGLE_CLIENT_SECRET=<client-secret> \
-  AUTH_GOOGLE_CALLBACK_URL=https://api.crm.lomi.africa/auth/google/callback \
-  --service crm-server
-
-railway variable set AUTH_GOOGLE_ENABLED=true --service crm-worker
-```
-
-Code enforces `@lomi.africa` in `google.auth.strategy.ts` as defense-in-depth.
+Quick version: Google Cloud → Internal OAuth app → add callback `https://api.crm.lomi.africa/auth/google/callback` → set Railway vars on `crm-server` and `crm-worker`.
 
 ## Vercel (frontend)
 

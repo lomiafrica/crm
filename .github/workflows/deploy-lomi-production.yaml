@@ -1,0 +1,71 @@
+name: Deploy lomi CRM (production)
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**/*.md"
+      - "docs/**"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-lomi-crm-production
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  RAILWAY_PROJECT_ID: b931934c-995c-4f3c-9587-09c71940c2f0
+  REACT_APP_SERVER_BASE_URL: https://api.crm.lomi.africa
+
+jobs:
+  deploy-railway-server:
+    name: Railway · crm-server
+    runs-on: ubuntu-latest
+    container: ghcr.io/railwayapp/cli:latest
+    env:
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy API
+        run: railway up --ci --service crm-server
+
+  deploy-railway-worker:
+    name: Railway · crm-worker
+    needs: deploy-railway-server
+    runs-on: ubuntu-latest
+    container: ghcr.io/railwayapp/cli:latest
+    env:
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy worker
+        run: railway up --ci --service crm-worker
+
+  deploy-vercel:
+    name: Vercel · crm.lomi.africa
+    needs: deploy-railway-server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Deploy frontend
+        uses: amondnet/vercel-action@v42.2.0
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_CRM }}
+          working-directory: .
+          vercel-args: "--prod"
+        env:
+          REACT_APP_SERVER_BASE_URL: ${{ env.REACT_APP_SERVER_BASE_URL }}
