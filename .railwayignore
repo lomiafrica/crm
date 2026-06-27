@@ -1,0 +1,13 @@
+.git
+.github
+.claude
+.cursor
+packages/twenty-docs
+packages/twenty-website
+packages/twenty-e2e-testing
+packages/twenty-apps
+packages/twenty-companion
+packages/twenty-codex-plugin
+packages/twenty-zapier
+packages/twenty-cli
+packages/create-twenty-app

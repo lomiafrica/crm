@@ -86,6 +86,15 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       );
     }
 
+    const ALLOWED_DOMAIN = 'lomi.africa';
+
+    if (!firstVerifiedEmail.endsWith(`@${ALLOWED_DOMAIN}`)) {
+      throw new AuthException(
+        `Only @${ALLOWED_DOMAIN} accounts are allowed`,
+        AuthExceptionCode.FORBIDDEN_EXCEPTION,
+      );
+    }
+
     const user: GoogleRequest['user'] = {
       email: firstVerifiedEmail,
       firstName: name?.givenName,
