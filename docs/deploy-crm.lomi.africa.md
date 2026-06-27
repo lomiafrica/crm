@@ -97,10 +97,17 @@ Project settings:
 
 ## DNS
 
-| Type  | Name     | Target                                      |
-|-------|----------|---------------------------------------------|
-| CNAME | `crm`    | `cname.vercel-dns.com`                      |
-| CNAME | `api.crm`| Railway-provided host for `api.crm.lomi.africa` |
+| Type  | Name                | Target / Value |
+|-------|---------------------|----------------|
+| CNAME | `crm`               | `cname.vercel-dns.com` |
+| CNAME | `api.crm`           | `v3xhxaqw.up.railway.app` |
+| TXT   | `_railway-verify.api.crm` | `railway-verify=adfa0b26b753ee573c89c7c6846237896201c48c5bde67a2c1d5cfbcc0b1f162` |
+
+Check propagation:
+
+```bash
+railway domain status api.crm.lomi.africa --service crm-server
+```
 
 ## First run
 
