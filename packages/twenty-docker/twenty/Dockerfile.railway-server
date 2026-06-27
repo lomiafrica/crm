@@ -47,7 +47,8 @@ RUN apk add --no-cache \
     jq
 
 COPY ./packages/twenty-docker/twenty/entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
+COPY ./packages/twenty-docker/twenty/railway-start.sh /app/railway-start.sh
+RUN chmod +x /app/entrypoint.sh /app/railway-start.sh
 WORKDIR /app/packages/twenty-server
 
 ARG APP_VERSION

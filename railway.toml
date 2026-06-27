@@ -2,7 +2,5 @@
 dockerfilePath = "packages/twenty-docker/twenty/Dockerfile.railway-server"
 
 [deploy]
-startCommand = "node dist/main"
-healthcheckPath = "/healthz"
-healthcheckTimeout = 300
+startCommand = "/app/railway-start.sh"
 restartPolicyType = "on-failure"
