@@ -3,4 +3,4 @@ dockerfilePath = "packages/twenty-docker/twenty/Dockerfile.railway-server"
 
 [deploy]
 startCommand = "/app/railway-start.sh"
-restartPolicyType = "on-failure"
+restartPolicyType = "ON_FAILURE"

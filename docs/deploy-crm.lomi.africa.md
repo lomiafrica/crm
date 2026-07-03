@@ -93,8 +93,8 @@ vercel --cwd . \
 
 Project settings:
 - **Root Directory:** `apps/crm`
-- **Build Command:** `yarn nx build twenty-front`
-- **Output Directory:** `packages/twenty-front/dist`
+- **Build Command:** `yarn nx build twenty-front && cd packages/twenty-front && ./scripts/inject-runtime-env.sh`
+- **Output Directory:** `packages/twenty-front/build`
 - **Environment variable:** `REACT_APP_SERVER_BASE_URL=https://api.crm.lomi.africa`
 
 3. Add domain `crm.lomi.africa` in Vercel → Domains

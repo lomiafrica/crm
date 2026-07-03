@@ -19,7 +19,7 @@ A private Google login button that only works for `@lomi.africa` emails. Two lay
 
 ## Step 1 — Open Google Cloud
 
-1. Go to [console.cloud.google.com](https://console.cloud.google.com)
+1. Go to [console.cloud.google.com](https://conlsole.cloud.google.com)
 2. Sign in with your **@lomi.africa** admin account
 3. Top bar → pick a project (or **New Project** → name it `lomi-crm` → Create)
 

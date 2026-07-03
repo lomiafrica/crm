@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "yarn nx build twenty-front",
+  "buildCommand": "yarn nx build twenty-front && cd packages/twenty-front && ./scripts/inject-runtime-env.sh",
   "outputDirectory": "packages/twenty-front/build",
   "installCommand": "yarn install",
   "framework": null,
