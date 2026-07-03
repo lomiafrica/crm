@@ -78,7 +78,7 @@ Add the returned CNAME at your DNS provider for `api.crm`.
 
 **Full walkthrough:** [docs/google-oauth-setup.md](google-oauth-setup.md)
 
-Quick version: Google Cloud → Internal OAuth app → add callback `https://api.crm.lomi.africa/auth/google/callback` → set Railway vars on `crm-server` and `crm-worker`.
+Quick version: Google Cloud → Internal OAuth app → add callback `https://api.crm.lomi.africa/auth/google/redirect` → set Railway vars on `crm-server` and `crm-worker`.
 
 ## Vercel (frontend)
 

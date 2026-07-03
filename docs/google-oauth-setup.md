@@ -50,8 +50,8 @@ A private Google login button that only works for `@lomi.africa` emails. Two lay
    ```
 5. **Authorized redirect URIs** — add:
    ```
-   https://api.crm.lomi.africa/auth/google/callback
-   https://crm-server-production-4904.up.railway.app/auth/google/callback
+   https://api.crm.lomi.africa/auth/google/redirect
+   https://crm-server-production-4904.up.railway.app/auth/google/redirect
    ```
 6. Click **Create**
 7. Copy the **Client ID** and **Client secret** (you'll need both in the next step)
@@ -69,7 +69,7 @@ railway variable set \
   AUTH_GOOGLE_ENABLED=true \
   AUTH_GOOGLE_CLIENT_ID="paste-client-id-here" \
   AUTH_GOOGLE_CLIENT_SECRET="paste-client-secret-here" \
-  AUTH_GOOGLE_CALLBACK_URL=https://api.crm.lomi.africa/auth/google/callback \
+  AUTH_GOOGLE_CALLBACK_URL=https://api.crm.lomi.africa/auth/google/redirect \
   --service crm-server
 
 railway variable set AUTH_GOOGLE_ENABLED=true --service crm-worker
@@ -93,7 +93,8 @@ Railway will redeploy automatically. Wait ~2 minutes.
 | Problem | Fix |
 |---------|-----|
 | "Access blocked" / can't pick Internal | You need Workspace admin, not just a @lomi.africa mailbox |
-| Redirect URI mismatch | Double-check the callback URL is exactly `https://crm-server-production-4904.up.railway.app/auth/google/callback` (or `https://api.crm.lomi.africa/auth/google/callback` once DNS is verified) |
+| Redirect URI mismatch | Double-check the callback URL is exactly `https://crm-server-production-4904.up.railway.app/auth/google/redirect` (or `https://api.crm.lomi.africa/auth/google/redirect` once DNS is verified) |
+| `Cannot GET /auth/google/callback` (404) | Twenty handles OAuth at `/auth/google/redirect`. Update Google redirect URI and `AUTH_GOOGLE_CALLBACK_URL`, or redeploy after the `/callback` alias is live |
 | Error 401: invalid_client | Remove stray quotes from `AUTH_GOOGLE_CLIENT_ID` in Railway — paste the ID without `"` characters |
 | Login works but wrong domain | Only @lomi.africa accounts are allowed by design |
 | No Google button on login page | `AUTH_GOOGLE_ENABLED` must be `true` on `crm-server` |

@@ -13,14 +13,14 @@ Google OAuth setup for Twenty CRM (@lomi.africa only)
    - Authorized JavaScript origins:
      https://api.crm.lomi.africa
    - Authorized redirect URIs:
-     https://api.crm.lomi.africa/auth/google/callback
+     https://api.crm.lomi.africa/auth/google/redirect
 4. Copy Client ID and Client Secret, then run:
 
    railway variable set \
      AUTH_GOOGLE_ENABLED=true \
      AUTH_GOOGLE_CLIENT_ID=<client-id> \
      AUTH_GOOGLE_CLIENT_SECRET=<client-secret> \
-     AUTH_GOOGLE_CALLBACK_URL=https://api.crm.lomi.africa/auth/google/callback \
+     AUTH_GOOGLE_CALLBACK_URL=https://api.crm.lomi.africa/auth/google/redirect \
      --service crm-server
 
    railway variable set AUTH_GOOGLE_ENABLED=true --service crm-worker
