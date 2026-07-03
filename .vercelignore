@@ -1,0 +1,55 @@
+# Dependencies & build output (installed/built on Vercel)
+node_modules/
+dist/
+build/
+coverage/
+storybook-static/
+.nx/
+.swc/
+
+# Backend & worker (deployed on Railway, not Vercel)
+packages/twenty-server/
+
+# Packages not in the twenty-front Nx build graph
+packages/twenty-docs/
+packages/twenty-website/
+packages/twenty-apps/
+packages/twenty-docker/
+packages/twenty-e2e-testing/
+packages/twenty-emails/
+packages/twenty-cli/
+packages/twenty-zapier/
+packages/twenty-companion/
+packages/twenty-codex-plugin/
+packages/twenty-claude-skills/
+packages/create-twenty-app/
+packages/twenty-utils/
+packages/twenty-oxlint-rules/
+
+# CI, docs, and local tooling
+.github/
+docs/
+scripts/
+.cursor/
+.claude/
+.vscode/
+.vercel/
+
+# Local env & secrets
+.env
+.env.*
+!.env.example
+!.env.vercel.example
+
+# Railway deploy config (not used on Vercel)
+railway.toml
+railway.worker.toml
+.railwayignore
+
+# Dev notes not needed at build time
+CLAUDE.md
+DESIGN.md
+PRODUCT.md
+README.md
+LICENSE
+.mcp.json
