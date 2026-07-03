@@ -232,21 +232,25 @@ export const SignInUpGlobalScopeForm = () => {
               isGlobalScope
             />
           )}
-          {(authProviders.google || authProviders.microsoft) && (
-            <HorizontalSeparator />
-          )}
-          {/* oxlint-disable-next-line react/jsx-props-no-spreading */}
-          <FormProvider {...form}>
-            <SignInUpWithCredentials isGlobalScope />
-          </FormProvider>
-          {signInUpStep === SignInUpStep.Password && (
-            <StyledForgotPasswordLinkContainer>
-              <ClickToActionLink
-                onClick={handleResetPassword(form.getValues('email'))}
-              >
-                <Trans>Forgot your password?</Trans>
-              </ClickToActionLink>
-            </StyledForgotPasswordLinkContainer>
+          {authProviders.password && (
+            <>
+              {(authProviders.google || authProviders.microsoft) && (
+                <HorizontalSeparator />
+              )}
+              {/* oxlint-disable-next-line react/jsx-props-no-spreading */}
+              <FormProvider {...form}>
+                <SignInUpWithCredentials isGlobalScope />
+              </FormProvider>
+              {signInUpStep === SignInUpStep.Password && (
+                <StyledForgotPasswordLinkContainer>
+                  <ClickToActionLink
+                    onClick={handleResetPassword(form.getValues('email'))}
+                  >
+                    <Trans>Forgot your password?</Trans>
+                  </ClickToActionLink>
+                </StyledForgotPasswordLinkContainer>
+              )}
+            </>
           )}
         </StyledOnboardingContentContainer>
       )}

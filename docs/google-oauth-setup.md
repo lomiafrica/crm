@@ -46,10 +46,12 @@ A private Google login button that only works for `@lomi.africa` emails. Two lay
 4. **Authorized JavaScript origins** — add:
    ```
    https://api.crm.lomi.africa
+   https://crm-server-production-4904.up.railway.app
    ```
 5. **Authorized redirect URIs** — add:
    ```
    https://api.crm.lomi.africa/auth/google/callback
+   https://crm-server-production-4904.up.railway.app/auth/google/callback
    ```
 6. Click **Create**
 7. Copy the **Client ID** and **Client secret** (you'll need both in the next step)
@@ -91,7 +93,8 @@ Railway will redeploy automatically. Wait ~2 minutes.
 | Problem | Fix |
 |---------|-----|
 | "Access blocked" / can't pick Internal | You need Workspace admin, not just a @lomi.africa mailbox |
-| Redirect URI mismatch | Double-check the callback URL is exactly `https://api.crm.lomi.africa/auth/google/callback` |
+| Redirect URI mismatch | Double-check the callback URL is exactly `https://crm-server-production-4904.up.railway.app/auth/google/callback` (or `https://api.crm.lomi.africa/auth/google/callback` once DNS is verified) |
+| Error 401: invalid_client | Remove stray quotes from `AUTH_GOOGLE_CLIENT_ID` in Railway — paste the ID without `"` characters |
 | Login works but wrong domain | Only @lomi.africa accounts are allowed by design |
 | No Google button on login page | `AUTH_GOOGLE_ENABLED` must be `true` on `crm-server` |
 
